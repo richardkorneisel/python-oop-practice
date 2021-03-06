@@ -18,6 +18,22 @@
 #    - model
 #    - color
 #
+# class Car:
+#     def __init__(self, make, model, color):
+#        self.make = make
+#        self.model = model
+#        self.color = color
+   
+#     def __str__(self):
+#        return f"{self.make} {self.model} {self.color}"
+   
+#     def drive(self):
+#        return 'vroom vroom'
+        
+# car = Car('chevy', 'nova', 'gray')
+# print(car)
+# print(car.drive())
+      
 # Your Car class should have the following methods:
 #
 #    - drive: print 'vroom vroom' to the console
@@ -36,7 +52,16 @@
 #
 # Make an instance of your Toyota class.
 #
-
+# class Toyota(Car):
+#     def __init__(self, make, model, color):
+#        super().__init__('Toyota', model, color)
+   
+#     def drive(self):
+#        return ('run run')
+        
+# toyota = Toyota('toyota', 'new', 'cherry red')
+# print(toyota)
+# print(toyota.drive())
 #
 # Prompt 3: You Do
 #
@@ -45,7 +70,20 @@
 #
 # After you've defined your class, create 3 instances.
 #
-
+# class Cougar:
+#     def __init__(self, name, genus, species):
+#         self.name = name
+#         self.genus = genus
+#         self.species = species
+#     def __str__(self):
+#        return f"{self.name} {self.genus} {self.species}"
+   
+#     def sound(self):
+#        return 'roar or scream'
+        
+# cat = Cougar('Cougar', 'Felis', 'Concolor')
+# print(cat)
+# print(cat.sound())
 # Prompt 4: You Do
 #
 # Once we've completed the above, work through the following changes to your
@@ -56,6 +94,40 @@
 #   - add a property to your Toyota class
 #   - add a property to your Car class and "fill it in" for your Toyota class
 #
+class Car:
+    def __init__(self, make, model, weight):
+       self.make = make
+       self.model = model
+       self.weight = weight
+   
+    def __str__(self):
+       return f"{self.make} {self.model} {self.weight}"
+   
+    def drive(self):
+       return 'vroom vroom'
+        
+car = Car('chevy', 'nova', '2000 lbs')
+#print(car)
+#print(car.drive())
+
+class Toyota(Car):
+    def __init__(self, model, weight, color, engine, make='Toyota'):
+        super().__init__(make, model, weight)
+        self.color = color
+        self.engine = engine
+    
+    def __str__(self):
+       return f"{self.make} {self.model} {self.weight} {self.color} {self.engine}"
+   
+    # def drive(self):
+    #    return ('run run')
+   
+    # def fuel_economy(self):
+    #     return ('34 mpg')
+        
+toyota = Toyota('corolla', '2000 lbs','cherry red', '4L')
+#print(toyota)
+#print(toyota.drive())
 
 #
 # Prompt 5: You Do
@@ -72,7 +144,40 @@
 # Create an instance of your animal class (the one that extends the Animal
 # class).
 #
+class Cougar:
+    def __init__(self, name, genus, species):
+        self.name = name
+        self.genus = genus
+        self.species = species
+    def __str__(self):
+       return f"{self.name} {self.genus} {self.species}"
+   
+    def sound(self):
+       return 'roar or scream'
+        
+cat = Cougar('Cougar', 'Felis', 'Concolor')
+#print(cat)
+#print(cat.sound())
 
+class Animal(Cougar):
+    def __init__(self, name, genus, species, group):
+        super().__init__(name, genus, species)
+        self.group = group
+    
+    def __str__(self):
+       return f"{self.name} {self.genus} {self.species} {self.group}"
+    
+    def eat(self):
+       return 'Yum Yum'
+    
+    def sleep(self):
+       return 'zzzzz'
+    
+animal = Animal('Cougar', 'Felis','Concolor', 'Mammal')
+print(animal)
+print(animal.eat())
+print(animal.sleep())   
+    
 #
 # Prompt 6: You Do
 #
@@ -87,7 +192,68 @@
 #   - length (the number of cards - should start at 52)
 #   - cards (an array of cards in the deck)
 #   - draw: return a random card from the cards array
-#
+import random
+
+class Card:                                  
+    def __init__ (self, suit, score, rank): #, score
+        self.suit = suit
+        self.score = score
+        self.rank = rank
+        
+        
+    def show(self):
+        print ("{} of {} rank {}".format(self.rank, self.suit, self.score+2))
+
+#card= Card('Card', 6)
+#card.show()
+                                                
+class Deck:
+    def __init__ (self): 
+        self.cards = []
+        self.build()
+      
+    def build(self):
+        for s in ['Spades', 'Clubs', 'Diamonds', 'Hearts']:
+            #for r in range(1, 14):
+            for sc, r in enumerate(['2', '3', '4', '5', '6', '7', '8', '9', '10', "Jack", "Queen", "King", "Ace"]):
+                self.cards.append(Card(s, sc, r))
+    def show(self):
+        for c in self.cards:
+            c.show()
+  
+#deck = Deck()
+#deck.show()
+
+    def shuffle(self):
+        for i in range(len(self.cards)-1,0,-1):
+            r = random.randint(0, i)
+            self.cards[i], self.cards[r] = self.cards[r], self.cards[i]
+
+# deck = Deck()
+# deck.shuffle()
+# deck.show()
+
+    def drawCard(self):
+        return self.cards.pop()
+    
+deck = Deck()
+deck.shuffle()
+
+card = deck.drawCard()
+card.show()
+
+            
+#       const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"];
+#       var cards = [];                               // creating an array to store cards
+#         for(let i=0; i<suits.length; i++) {         // nested for loop.  Loop of ranks inside loop of suits. 
+#           for(let j=0; j<values.length; j++) {
+#             var newCard = new Card (suits[i], values[j], j)  //create card suit, then value, then rank.
+#             cards.push(newCard);
+#           }
+#         }
+#       this.length = cards.length                       //referencing the length of the cards array
+#       this.cards = cards                               //defining the cards property as the array
+#       }
 # When you create an instance of your Deck class (i.e. in your constructor),
 # fill in the cards array with 52 instances of your Card class. You can do
 # this with a nested for loop - first loop through an array of all possible
